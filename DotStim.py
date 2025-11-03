@@ -86,7 +86,7 @@ DOT_SIZE = 5  # in pixels
 DOT_SPEED = 0.5  # degrees/frame
 DOT_FIELD_SIZE = 2  # degrees
 COHERENCE_LEVELS = [0.05, 0.1, 0.2, 0.4, 0.8]  # Fixed coherence levels
-DIRECTIONS = [0, 180]  # Right (0°) and Left (180°)
+DIRECTIONS = [0, 90, 180, 270]
 FIXATION_MIN = 0.5  # seconds
 FIXATION_MAX = 1.5  
 
@@ -94,12 +94,13 @@ FIXATION_MAX = 1.5
 fix = TextStim(win, "+", height=2)
 dots = DotStim(
     win,
-    fieldShape='circle', 
+    fieldShape='square',
     nDots=N_DOTS,
-    fieldSize=DOT_FIELD_SIZE,
-    dotSize=DOT_SIZE,
+    fieldSize=DOT_FIELD_SIZE * 2,
+    dotSize=DOT_SIZE + 2,
     speed=DOT_SPEED,
-    dotLife=-1,  # infinite lifetime
+    color='red',
+    dotLife=-1,
     noiseDots='direction',
     signalDots='same'
 )
@@ -113,7 +114,12 @@ for coherence in COHERENCE_LEVELS:
             trial_list.append({
                 'coherence': coherence,
                 'direction': direction,
-                'correct_response': 'left' if direction == 180 else 'right'
+                'correct_response': (
+                    'left' if direction == 180 else
+                    'right' if direction == 0 else
+                    'up' if direction == 90 else
+                    'down'
+                )
             })
 
 trials = data.TrialHandler(trial_list, nReps=1, method='random')
