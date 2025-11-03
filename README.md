@@ -66,4 +66,9 @@ rt: Reaction time in seconds
 correct: Boolean indicating if response was correct
 fixation_duration: Duration of fixation period
 
+## My Modifications
+For this task, I modified the appearance of the random dot stimulus.
+The dots are larger, red, and displayed in a square field instead of a circular one.
+This change makes the motion easier to see while keeping the experimental logic identical to the original.
+
 
